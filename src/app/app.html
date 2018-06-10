@@ -1,0 +1,47 @@
+<ion-menu [content]="mainContent">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list id="menu-list2">
+      <ion-item color="none" menuClose="" on-click="goToMyLight()" id="menu-list-item4">
+        <ion-icon name="bulb" item-left></ion-icon>
+        My Light
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToSpotlight()" id="menu-list-item5">
+        <ion-icon name="star" item-left></ion-icon>
+        Spotlight
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToDiscover()" id="menu-list-item6">
+        <ion-icon name="search" item-left></ion-icon>
+        Discover
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToMyProfile()" id="menu-list-item7">
+        <ion-icon name="body" item-left></ion-icon>
+        My Profile
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToInbox()" id="menu-list-item10">
+        <ion-icon name="filing" item-left></ion-icon>
+        Inbox
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToLightLab()" id="menu-list-item8">
+        <ion-icon name="analytics" item-left></ion-icon>
+        Light Lab
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToAccount()" id="menu-list-item42">
+        <ion-icon name="add-circle" item-left></ion-icon>
+        Account
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToSettings()" id="menu-list-item9">
+        <ion-icon name="settings" item-left></ion-icon>
+        Settings
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage"></ion-nav>

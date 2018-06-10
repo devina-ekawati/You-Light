@@ -1,0 +1,49 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			User List
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+ 
+<ion-content>
+	<ion-row>
+		<ion-col col-1> 
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="newName" placeholder="Name"></ion-input>
+			</ion-item>
+		</ion-col>
+		
+	</ion-row>
+	<ion-row>
+		<ion-col col-1>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="newMail" placeholder="e-mail"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	
+	 <ion-row>
+		<ion-col col-1>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="newPassword" placeholder="Password"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row>
+		<ion-col>
+			<button ion-button (click)="addUser()">Add!</button>
+		</ion-col>
+	</ion-row>
+	<ion-list>
+		<ion-item-sliding *ngFor="let User of Users | async">
+			<ion-item>
+			{{ User.Name }}
+			</ion-item>
+			<ion-item-options side="right">
+				<button ion-button color="danger" icon-only (click)="removeUser(User.$key)"><ion-icon name="trash"></ion-icon></button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>
