@@ -10,6 +10,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 */
 @Injectable()
 export class FirebaseProvider {
+  
  
   constructor(public afd: AngularFireDatabase) { }
    
@@ -17,6 +18,10 @@ export class FirebaseProvider {
         	return this.afd.list('/Users');
 	}
 	
+	connectUser(arg0: any, arg1: any): any {
+		throw new Error("Method not implemented.");
+	  }
+
 	addUser(name,mail,password) {
 		var item = {
 			'Name': name,

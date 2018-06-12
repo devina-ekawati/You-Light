@@ -10,7 +10,6 @@ import { LightLabPage } from '../pages/light-lab/light-lab';
 import { SpotlightPage } from '../pages/spotlight/spotlight';
 import { RachelPage } from '../pages/rachel/rachel';
 import { DiscoverPage } from '../pages/discover/discover';
-import { AccountPage } from '../pages/account/account';
 import { InboxPage } from '../pages/inbox/inbox';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { SettingsPage } from '../pages/settings/settings';
@@ -18,6 +17,12 @@ import { SettingsPage } from '../pages/settings/settings';
 
 import { MyLightPage } from '../pages/my-light/my-light';
 import { HomePage } from '../pages/home/home'
+import { SignUpPage } from '../pages/account/signup';
+import { SignInPage } from '../pages/signin/signin';
+
+
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 
 @Component({
@@ -25,9 +30,19 @@ import { HomePage } from '../pages/home/home'
 })
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
-    rootPage:any = MyLightPage;
+  rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
+    const authObserver = afAuth.authState.subscribe(user => {
+      if (user) {
+        this.rootPage = MyLightPage;
+        authObserver.unsubscribe();
+      } else {
+        this.rootPage = SignInPage;
+        authObserver.unsubscribe();
+      }
+    });
+    
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,6 +50,8 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+
   goToHome(params){
     if (!params) params = {};
     this.navCtrl.setRoot(HomePage);
@@ -62,9 +79,12 @@ export class MyApp {
   }goToDiscover(params){
     if (!params) params = {};
     this.navCtrl.setRoot(DiscoverPage);
-  }goToAccount(params){
+  }goToSignUp(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(AccountPage);
+    this.navCtrl.setRoot(SignUpPage);
+  }goToSignIn(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(SignInPage);
   }goToInbox(params){
     if (!params) params = {};
     this.navCtrl.setRoot(InboxPage);

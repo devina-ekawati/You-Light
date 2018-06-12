@@ -13,8 +13,9 @@ import { RachelPage } from '../pages/rachel/rachel';
 import { ManagePage } from '../pages/manage/manage';
 import { CongratulationsPage } from '../pages/congratulations/congratulations';
 import { NewGoalPage } from '../pages/new-goal/new-goal';
-import { AccountPage } from '../pages/account/account';
 import { HomePage } from '../pages/home/home'
+import { SignUpPage } from '../pages/account/signup';
+import { SignInPage } from '../pages/signin/signin';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -23,8 +24,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AuthProvider } from '../providers/auth/auth';
+
+
 
 const firebaseConfig = {
         apiKey: "AIzaSyDeEyNKZa_rjBJgmgnexmG3tAVg7onKYfg",
@@ -52,14 +57,16 @@ const firebaseConfig = {
     ManagePage,
     CongratulationsPage,
     NewGoalPage,
-    AccountPage
+    SignUpPage,
+    SignInPage
   ],
   imports: [
     BrowserModule,
 	    IonicModule.forRoot(MyApp),
 		HttpModule,
         AngularFireDatabaseModule,
-        AngularFireModule.initializeApp(firebaseConfig)
+        AngularFireModule.initializeApp(firebaseConfig),
+        AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -76,14 +83,15 @@ const firebaseConfig = {
     ManagePage,
     CongratulationsPage,
     NewGoalPage,
-    AccountPage
+    SignUpPage,
+    SignInPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-	 FirebaseProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FirebaseProvider
+   {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}
