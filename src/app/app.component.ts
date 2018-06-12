@@ -17,7 +17,7 @@ import { SettingsPage } from '../pages/settings/settings';
 
 
 import { MyLightPage } from '../pages/my-light/my-light';
-
+import { HomePage } from '../pages/home/home'
 
 
 @Component({
@@ -35,7 +35,10 @@ export class MyApp {
       splashScreen.hide();
     });
   }
-  goToMyLight(params){
+  goToHome(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(HomePage);
+  }goToMyLight(params){
     if (!params) params = {};
     this.navCtrl.setRoot(MyLightPage);
   }goToManage(params){

@@ -14,16 +14,25 @@
       <ion-label>
         User Name
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" placeholder="" [(ngModel)]="newName" name="newName"></ion-input>
     </ion-item>
+
     <ion-item id="account-input8">
       <ion-label>
         Email
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" placeholder="" [(ngModel)]="newMail" name="newMail"></ion-input>
     </ion-item>
+
+    <ion-item id="account-input9">
+      <ion-label>
+        Password
+      </ion-label>
+      <ion-input type="password" placeholder="" [(ngModel)]="newPassword" name="newPassword"></ion-input>
+    </ion-item>    
+
   </form>
-  <button id="account-button12" ion-button color="energized" block on-click="goToNewGoal()">
+  <button id="account-button12" ion-button color="energized" block on-click="addUser()">
     Sign Up
   </button>
 </ion-content>

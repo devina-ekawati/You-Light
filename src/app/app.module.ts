@@ -14,6 +14,7 @@ import { ManagePage } from '../pages/manage/manage';
 import { CongratulationsPage } from '../pages/congratulations/congratulations';
 import { NewGoalPage } from '../pages/new-goal/new-goal';
 import { AccountPage } from '../pages/account/account';
+import { HomePage } from '../pages/home/home'
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -39,6 +40,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
+    HomePage,
     MyLightPage,
     SpotlightPage,
     DiscoverPage,
@@ -62,6 +64,7 @@ const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HomePage,
     MyLightPage,
     SpotlightPage,
     DiscoverPage,
