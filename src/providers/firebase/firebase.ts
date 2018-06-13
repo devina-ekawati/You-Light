@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
- 
+import { AuthProvider } from '../../providers/auth/auth';
+import { Observable } from 'rxjs';
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -11,24 +12,52 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 @Injectable()
 export class FirebaseProvider {
   
- 
-  constructor(public afd: AngularFireDatabase) { }
+  authPro: AuthProvider;
+  constructor(public afd: AngularFireDatabase, public authPro1 : AuthProvider) { 
+
+	this.authPro = authPro1;
+
+  }
    
     	getUsers() {
         	return this.afd.list('/Users');
 	}
 	
+	getUserByID(id) {
+		var test = this.afd.object('/Users/'+id);
+		console.log(test);
+		return test;
+	}
+
+	/* Does mot work asynchronously 
+	
+	getMyUserInfo(){
+		
+		const authObserver = this.authPro.afAuth.authState.subscribe(user => {
+			var id = user.uid;
+			var User: Observable<any[]>;
+			//console.log(id);
+			User = this.getUserByID(id);
+			//console.log(this.User);
+			
+		  });	
+		  return authObserver;
+	}*/
 	connectUser(arg0: any, arg1: any): any {
 		throw new Error("Method not implemented.");
 	  }
 
-	addUser(name,mail,password) {
+	addUser(name,mail,password,key) {
 		var item = {
 			'Name': name,
 			'mail' : mail,
-			'Password' : password
+			'Password' : password,
+			'UID' : key,
 		};
-	        this.afd.list('/Users').push(item);
+		console.log(key);
+		const userList = this.afd.list('/Users');
+		userList.update(key,item);
+		
 	}
 	
 	removeUser(id) {

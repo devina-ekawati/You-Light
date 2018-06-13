@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NewGoalPage } from '../new-goal/new-goal';
 import { LightLabPage } from '../light-lab/light-lab';
+import { MyLightPage } from '../my-light/my-light';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
 import {
   NavController,
@@ -13,8 +14,6 @@ import { AuthProvider } from '../../providers/auth/auth';
 //import { MyLightPage } from '../my-light/my-light';
 import { EmailValidator } from '../../validators/email';
 import { SignUpPage }  from '../account/signup';
-
-
 
 @Component({
   selector: 'page-signin',
@@ -52,7 +51,7 @@ export class SignInPage {
     } else {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .then( authData => {
-        this.navCtrl.setRoot('HomePage');
+        this.navCtrl.setRoot(MyLightPage);
       }, error => {
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({
@@ -83,5 +82,12 @@ export class SignInPage {
     this.navCtrl.push(SignUpPage);
   }
 
+  logOut(){
+    // ask validation
+    this.authData.logoutUser();
+  }
 
+  get_user_status(){
+    return this.authData.get_user_status();
+ }
 }

@@ -17,7 +17,7 @@ export class HomePage {
   }
 
   addUser() {
-      this.firebaseProvider.addUser(this.newName,this.newMail,this.newPassword);
+      this.firebaseProvider.addUser(this.newName,this.newMail,this.newPassword,"hometest");
       }
    removeUser(id) {
        this.firebaseProvider.removeUser(id);

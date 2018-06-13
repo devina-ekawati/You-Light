@@ -14,16 +14,12 @@ import { InboxPage } from '../pages/inbox/inbox';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { SettingsPage } from '../pages/settings/settings';
 
-
 import { MyLightPage } from '../pages/my-light/my-light';
 import { HomePage } from '../pages/home/home'
 import { SignUpPage } from '../pages/account/signup';
 import { SignInPage } from '../pages/signin/signin';
 
-
 import { AngularFireAuth } from 'angularfire2/auth';
-
-
 
 @Component({
   templateUrl: 'app.html'
@@ -50,7 +46,6 @@ export class MyApp {
       splashScreen.hide();
     });
   }
-
 
   goToHome(params){
     if (!params) params = {};
@@ -95,4 +90,5 @@ export class MyApp {
     if (!params) params = {};
     this.navCtrl.setRoot(SettingsPage);
   }
+
 }
