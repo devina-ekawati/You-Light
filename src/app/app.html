@@ -54,11 +54,11 @@
           <ion-icon item-left name="ios-arrow-down" *ngIf="isAccountMenuToggled"></ion-icon>
           Account
         </ion-item>
-        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled">
+        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled" on-click="goToSignIn()">
           <ion-icon name="log-in" item-left></ion-icon>
           Sign In
         </ion-item>
-        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled">
+        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled" on-click="goToSignUp()">
           <ion-icon name="person-add" item-left></ion-icon>
           Sign Up
         </ion-item>
