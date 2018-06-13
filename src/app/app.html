@@ -36,19 +36,33 @@
         <ion-icon name="analytics" item-left></ion-icon>
         Light Lab
       </ion-item>
-      <ion-list color="none" menuClose="" id="menu-list-item42">
-        
-          <ion-icon name="add-circle" item-left></ion-icon>
-          Account
-        
+      <!-- <ion-item>
+        <ion-icon name="add-circle" style="font-size: 30px; vertical-align: middle"></ion-icon>
+        <span style="margin-left: 25px;">Account</span>
+        <ion-list style="margin-left: 50px; margin-bottom: 0px;">
           <ion-item color="none" menuClose="" on-click="goToSignIn()" id="menu-list-item43">
             Sign In
           </ion-item>
           <ion-item color="none" menuClose="" on-click="goToSignUp()" id="menu-list-item44">
             Sign Up
           </ion-item>
-          
-      </ion-list>
+        </ion-list>
+      </ion-item> -->
+      <div>
+        <ion-item class="item-stable" on-click="toggleGroup()" [ngClass]="{'active': isAccountMenuToggled}">
+          <ion-icon item-left name="ios-arrow-forward" *ngIf="!isAccountMenuToggled"></ion-icon>
+          <ion-icon item-left name="ios-arrow-down" *ngIf="isAccountMenuToggled"></ion-icon>
+          Account
+        </ion-item>
+        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled">
+          <ion-icon name="log-in" item-left></ion-icon>
+          Sign In
+        </ion-item>
+        <ion-item class="item-accordion" [hidden]="!isAccountMenuToggled">
+          <ion-icon name="person-add" item-left></ion-icon>
+          Sign Up
+        </ion-item>
+      </div>
       <ion-item color="none" menuClose="" on-click="goToSettings()" id="menu-list-item9">
         <ion-icon name="settings" item-left></ion-icon>
         Settings
