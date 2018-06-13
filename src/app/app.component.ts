@@ -26,7 +26,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
-  rootPage:any;
+  rootPage: any;
+  isAccountMenuToggled: boolean;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
     const authObserver = afAuth.authState.subscribe(user => {
@@ -38,7 +39,9 @@ export class MyApp {
         authObserver.unsubscribe();
       }
     });
-    
+
+    this.isAccountMenuToggled = false;
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -47,48 +50,56 @@ export class MyApp {
     });
   }
 
-  goToHome(params){
+
+  toggleGroup() {
+    if (this.isAccountMenuToggled) {
+      this.isAccountMenuToggled = false;
+    } else {
+      this.isAccountMenuToggled = true;
+    }
+  }
+
+  goToHome(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(HomePage);
-  }goToMyLight(params){
+  } goToMyLight(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(MyLightPage);
-  }goToManage(params){
+  } goToManage(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(ManagePage);
-  }goToCongratulations(params){
+  } goToCongratulations(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(CongratulationsPage);
-  }goToNewGoal(params){
+  } goToNewGoal(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(NewGoalPage);
-  }goToLightLab(params){
+  } goToLightLab(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(LightLabPage);
-  }goToSpotlight(params){
+  } goToSpotlight(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(SpotlightPage);
-  }goToRachel(params){
+  } goToRachel(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(RachelPage);
-  }goToDiscover(params){
+  } goToDiscover(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(DiscoverPage);
-  }goToSignUp(params){
+  } goToSignUp(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(SignUpPage);
-  }goToSignIn(params){
+  } goToSignIn(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(SignInPage);
-  }goToInbox(params){
+  } goToInbox(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(InboxPage);
-  }goToMyProfile(params){
+  } goToMyProfile(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(MyProfilePage);
-  }goToSettings(params){
+  } goToSettings(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(SettingsPage);
   }
 
-}
