@@ -15,7 +15,7 @@
         <img src="assets/img/b5vXcTvSZ8gJISH438Ao_Fpr2Oz35_400x400.jpg" />
       </ion-avatar>
       <h2>
-        Gerald
+          {{ (User | async)?.Name }}    
       </h2>
     </ion-item>
   </ion-list>

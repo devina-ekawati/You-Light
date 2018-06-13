@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page12">
-    <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <form *ngIf="!get_user_status()" [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
         <ion-item>
           <ion-label stacked>Email</ion-label>
@@ -33,17 +33,21 @@
           <p>Your password needs more than 6 characters.</p>
         </ion-item>
     
-        <button ion-button block type="submit">
+        <button *ngIf="!get_user_status()" ion-button block type="submit">
           Login
         </button>
     
       </form>
 
-<button ion-button block clear (click)="goToResetPassword()">
+<button *ngIf="!get_user_status()" ion-button block clear (click)="goToResetPassword()">
     I forgot my password 🙁
   </button>
 
-  <button ion-button block clear (click)="createAccount()">
+  <button *ngIf="!get_user_status()" ion-button block clear (click)="createAccount()">
     Create a new account
   </button>
+
+  <button *ngIf="get_user_status()" ion-button block clear (click)="logOut()">
+      Log Out
+    </button>
 </ion-content>

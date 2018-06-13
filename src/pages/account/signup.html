@@ -36,16 +36,26 @@
     Sign Up
   </button>
 </ion-content>-->
-
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Sign Up
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content>
 <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
     
-    <!--<ion-item id="account-input7">
-        <ion-label stacked>
-          User Name
-        </ion-label>
-        <ion-input formControlName="name" type="text" placeholder="Your name" name="name"></ion-input>
-    </ion-item>-->
-
+    <ion-item>
+        <ion-label stacked>User Name</ion-label>
+        <ion-input formControlName="name" type="text" placeholder="Your name" [class.invalid]="!signupForm.controls.name.valid && signupForm.controls.name.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!signupForm.controls.email.valid  && signupForm.controls.email.dirty">
+        <p>Please enter a valid name.</p>
+      </ion-item>
     <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input formControlName="email" type="email" placeholder="Your email address"
@@ -69,3 +79,4 @@
     </button>
 
   </form>
+</ion-content>
