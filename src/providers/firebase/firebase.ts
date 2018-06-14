@@ -29,8 +29,8 @@ export class FirebaseProvider {
 		return test;
 	}
 
-	/* Does mot work asynchronously 
-	
+	/* Does mot work asynchronously I should understand better Observable object to perform it
+	But no time for that
 	getMyUserInfo(){
 		
 		const authObserver = this.authPro.afAuth.authState.subscribe(user => {
@@ -43,9 +43,6 @@ export class FirebaseProvider {
 		  });	
 		  return authObserver;
 	}*/
-	connectUser(arg0: any, arg1: any): any {
-		throw new Error("Method not implemented.");
-	  }
 
 	addUser(name,mail,password,key) {
 		var item = {
@@ -67,16 +64,39 @@ export class FirebaseProvider {
 	getGoals(){
 		 return this.afd.list('/Goals');
 	}
+
+	getGoalsbyID(key){
+		return this.afd.object('/Goals/'+key);
+	}
+
+	//NOT TESTED YET
+	getMyGoals(userID){
+		var listOfGoalsKeys =[];
+		var test = [1,2];
+		var Goals; //:FireListObservable<any[]]>;
+		var listKey = this.afd.list('/Users/'+userID+'/Goals/');
+		listKey.forEach(element => {
+			element.forEach(element1 => {
+				listOfGoalsKeys.push(element1.$value);
+				Goals.push(this.afd.object('/Goals/'+element1.$value));
+			})
+		});
+		return listOfGoalsKeys;
+		
+	}
 	
-	addGoals(Name,Owner,Privacy,Type){
+	addGoal(Name,Item1,Item2,Item3,UserId){
 		var item = {
 			'Name': Name,
-			'Owner': Owner.name,
-			'OwnerID': Owner.$key,
-			'Privacy': Privacy,
-			'Type': Type
+			'Item1': Item1,
+			'Item2': Item2,
+			'Item3': Item3,
+			'Light': 1, // Shine or not
+			'OtherAction': 0,
 			};
-		this.afd.list('/Goals').push(item);
+		this.afd.object('/Users/'+UserId+'Goals').update(item);
+		//var item2 = this.afd.object('/Users/'+Owner.$key+'/Goals');
+		
 	}
 	
 	addItems(goalID,Name){
