@@ -94,7 +94,9 @@ export class FirebaseProvider {
 			'Light': 1, // Shine or not
 			'OtherAction': 0,
 			};
-		this.afd.object('/Users/'+UserId+'Goals').update(item);
+
+		var goal = {}
+		this.afd.object('/Goals/'+UserId).update(item);
 		//var item2 = this.afd.object('/Users/'+Owner.$key+'/Goals');
 		
 	}
