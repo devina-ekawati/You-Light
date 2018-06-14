@@ -43,7 +43,8 @@ export class SignUpPage {
         .then((userData) => {
           var uid = userData.uid;
           this.nav.setRoot(MyLightPage);
-            this.firebaseProvider.addUser(this.signupForm.value.name,this.signupForm.value.email,this.signupForm.value.password, uid);
+          this.firebaseProvider.addUser(this.signupForm.value.name,this.signupForm.value.email,this.signupForm.value.password, uid);
+          this.firebaseProvider.initiateUserFeatures(uid);
           //create user in database. create user from firebasedb provider with : this.signupForm.value.name
         }, (error) => {
         this.loading.dismiss().then( () => {
