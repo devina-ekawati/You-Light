@@ -113,7 +113,8 @@ export class FirebaseProvider {
 		var userFeatures = {
 			'blinkState': 0,
 			'breathState': 1,
-			'finishedState': 0
+			'finishedState': 0,
+			'followState': 0
 		}
 
 		this.afd.object('/userFeatures/'+userID).update(userFeatures);
@@ -128,7 +129,7 @@ export class FirebaseProvider {
 	}
 
 	follow(userID) {
-		this.afd.object('/userFeatures/'+userID).update({'breathState': 1});
+		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 }
   
