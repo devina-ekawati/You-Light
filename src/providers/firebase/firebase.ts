@@ -117,8 +117,6 @@ export class FirebaseProvider {
 
 
   getGoal(userID) {
-    console.log('test');
-    var goal;
     // this.afd.object('/Goals/'+userID).subscribe(
     //   items => {
     //     items.map(
@@ -158,6 +156,7 @@ export class FirebaseProvider {
 
   finishlight(userID) {
 		this.afd.object('/userFeatures/'+userID).update({'finishedState': 1});
+		this.afd.object('/Goals/'+ userID).update({'goalStage': 1, 'taskStage': 0});
 	}
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Loading } from 'ionic-angular';
 import { ManagePage } from '../manage/manage';
 import { CongratulationsPage } from '../congratulations/congratulations';
 import { NewGoalPage } from '../new-goal/new-goal';
@@ -7,6 +7,7 @@ import { LightLabPage } from '../light-lab/light-lab';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'page-my-light',
@@ -17,18 +18,22 @@ export class MyLightPage {
   items: any[];
   uid: string;
   taskStage: number;
+  goals: Observable<any>;
+  goalName: string;
 
   constructor(public navCtrl: NavController,public authData: AuthProvider, public firebaseProvider: FirebaseProvider, public afd: AngularFireDatabase) {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
       this.uid = user.uid;
-      this.firebaseProvider.getGoal(this.uid).subscribe(
-        item => {
-          console.log(item);
-        }
-      );
+      // this.firebaseProvider.getGoal(this.uid).subscribe(
+      //   item => {
+      //     this.goals = item;
+      //   }
+      // );
     });
 
-    this.taskStage = 0;
+    // console.log(this.goals);
+
+    this.taskStage = -1;
 
     this.items = [
       {
@@ -52,7 +57,6 @@ export class MyLightPage {
         "value": false,
       }
     ];
-    console.log(this.items);
   }
   finishlight() {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
