@@ -21,37 +21,8 @@
       <ion-label>{{name.name}}</ion-label>
       <ion-checkbox [(ngModel)]="name.value" [ngModelOptions]="{standalone: true}" (click)="CheckboxClicked(name, $event)"></ion-checkbox>
     </ion-item>
-    <!-- <ion-item id="myLight-checkbox1">
-      <ion-label>
-        task1
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
     </ion-item>
-    <ion-item id="myLight-checkbox7">
-      <ion-label>
-        task2
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="myLight-checkbox9">
-      <ion-label>
-        task3
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="myLight-checkbox8">
-      <ion-label>
-        task4
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="myLight-checkbox6">
-      <ion-label>
-        task5
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item> -->
-    <button id="myLight-button3" ion-button color="energized" block on-click="goToCongratulations()">
+    <button id="myLight-button3" (click)="finishlight()" ion-button color="energized" block on-click="goToCongratulations()">
       Finish!
     </button>
     <button id="myLight-button4" ion-button color="stable" block on-click="goToManage()">

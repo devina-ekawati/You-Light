@@ -21,7 +21,7 @@ import { SignUpPage }  from '../account/signup';
 })
 
 export class SignInPage {
-  
+
   public loginForm:FormGroup;
   public loading:Loading;
 
@@ -52,7 +52,7 @@ export class SignInPage {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .then( authData => {
         // this.navCtrl.setRoot(MyLightPage);
-        this.navCtrl.setRoot(NewGoalPage);
+        this.navCtrl.setRoot(MyLightPage);
       }, error => {
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({

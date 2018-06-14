@@ -156,4 +156,8 @@ export class FirebaseProvider {
 		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 
+  finishlight(userID) {
+		this.afd.object('/userFeatures/'+userID).update({'finishedState': 1});
+	}
+
 }

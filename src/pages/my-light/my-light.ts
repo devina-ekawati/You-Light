@@ -54,6 +54,12 @@ export class MyLightPage {
     ];
     console.log(this.items);
   }
+  finishlight() {
+    const authObserver = this.authData.afAuth.authState.subscribe(user => {
+      var uid = user.uid;
+      this.firebaseProvider.finishlight(uid);
+    });
+  }
 
   goToManage(params){
     if (!params) params = {};
