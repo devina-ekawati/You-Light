@@ -112,7 +112,7 @@ export class FirebaseProvider {
 	initiateUserFeatures(userID){
 		var userFeatures = {
 			'blinkState': 0,
-			'breathState': 0,
+			'breathState': 1,
 			'finishedState': 0
 		}
 
