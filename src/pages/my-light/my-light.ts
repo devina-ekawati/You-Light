@@ -14,29 +14,45 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class MyLightPage {
 
+  items: any[];
+  uid: string;
+  taskStage: number;
+
   constructor(public navCtrl: NavController,public authData: AuthProvider, public firebaseProvider: FirebaseProvider, public afd: AngularFireDatabase) {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
-      var uid = user.uid;
-      var goalName;
-      this.firebaseProvider.getGoal(uid).subscribe(
+      this.uid = user.uid;
+      this.firebaseProvider.getGoal(this.uid).subscribe(
         item => {
           console.log(item);
         }
       );
-      // this.afd.object('/Goals/'+uid).subscribe(
-      //   item => {
-      //     this.currentGoal = item["goal"]["goalName"];
-      //     console.log(item["goal"]["goalName"]);
-      //     // this.currentGoal = item["goal"]["goalName"];
-      //   }
-      // );
-      // // this.task1 =
-      // // this.task2 =
-      // // this.task3 =
-      // // this.task4 =
-      // // this.task5 =
     });
 
+    this.taskStage = 0;
+
+    this.items = [
+      {
+        "name": "item1",
+        "value": false,
+      },
+      {
+        "name": "item2",
+        "value": false,
+      },
+      {
+        "name": "item3",
+        "value": false,
+      },
+      {
+        "name": "item4",
+        "value": false,
+      },
+      {
+        "name": "item5",
+        "value": false,
+      }
+    ];
+    console.log(this.items);
   }
 
   goToManage(params){
@@ -51,5 +67,12 @@ export class MyLightPage {
   }goToLightLab(params){
     if (!params) params = {};
     this.navCtrl.push(LightLabPage);
+  }
+
+  CheckboxClicked(item: any, $event) {
+    console.log('CheckboxClicked for ' + item.name + ' with value ' + item.value);
+    this.taskStage += 1;
+    console.log(this.taskStage);
+    this.afd.object('/Goals/' + this.uid).update({ 'taskStage': this.taskStage });
   }
 }

@@ -17,7 +17,11 @@
   </ion-list>
   <img src="assets/img/iUyh4eh3Qvii1w5vlkZF_30443628_1765685990158563_4327308116271038464_n.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
   <form id="myLight-form1">
-    <ion-item id="myLight-checkbox1">
+    <ion-item *ngFor="let name of items">
+      <ion-label>{{name.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="name.value" [ngModelOptions]="{standalone: true}" (click)="CheckboxClicked(name, $event)"></ion-checkbox>
+    </ion-item>
+    <!-- <ion-item id="myLight-checkbox1">
       <ion-label>
         task1
       </ion-label>
@@ -46,7 +50,7 @@
         task5
       </ion-label>
       <ion-checkbox></ion-checkbox>
-    </ion-item>
+    </ion-item> -->
     <button id="myLight-button3" ion-button color="energized" block on-click="goToCongratulations()">
       Finish!
     </button>
