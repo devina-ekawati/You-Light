@@ -47,7 +47,7 @@
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
-    <button id="myLight-button3" ion-button color="energized" block on-click="goToCongratulations()">
+    <button id="myLight-button3" (click)="finishlight()" ion-button color="energized" block on-click="goToCongratulations()">
       Finish!
     </button>
     <button id="myLight-button4" ion-button color="stable" block on-click="goToManage()">

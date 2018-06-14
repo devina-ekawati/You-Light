@@ -9,6 +9,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { EmailValidator } from '../../validators/email';
 import { MyLightPage } from '../my-light/my-light';
+import { NewGoalPage } from '../new-goal/new-goal';
 
 @Component({
   selector: 'page-signup',
@@ -42,7 +43,7 @@ export class SignUpPage {
         this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password)
         .then((userData) => {
           var uid = userData.uid;
-          this.nav.setRoot(MyLightPage);
+          this.nav.setRoot(NewGoalPage);
           this.firebaseProvider.addUser(this.signupForm.value.name,this.signupForm.value.email,this.signupForm.value.password, uid);
           this.firebaseProvider.initiateUserFeatures(uid);
           //create user in database. create user from firebasedb provider with : this.signupForm.value.name
