@@ -94,7 +94,9 @@ export class FirebaseProvider {
 			'Light': 1, // Shine or not
 			'OtherAction': 0,
 			};
-		this.afd.object('/Users/'+UserId+'Goals').update(item);
+
+		var goal = {}
+		this.afd.object('/Goals/'+UserId).update(item);
 		//var item2 = this.afd.object('/Users/'+Owner.$key+'/Goals');
 		
 	}
@@ -105,6 +107,29 @@ export class FirebaseProvider {
 			'status': 0,
 			};
 		this.afd.list('/Goal/'+goalID+'/Items').push(item);
+	}
+
+	initiateUserFeatures(userID){
+		var userFeatures = {
+			'blinkState': 0,
+			'breathState': 1,
+			'finishedState': 0,
+			'followState': 0
+		}
+
+		this.afd.object('/userFeatures/'+userID).update(userFeatures);
+
+		this.afd.object('/userFeatures/'+userID).subscribe(
+			userFeatures => console.log(userFeatures)
+		);
+	}
+
+	blinkMyLight(userID) {
+		this.afd.object('/userFeatures/'+userID).update({'blinkState': 1});
+	}
+
+	follow(userID) {
+		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 }
   

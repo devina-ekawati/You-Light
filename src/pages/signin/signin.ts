@@ -51,7 +51,8 @@ export class SignInPage {
     } else {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .then( authData => {
-        this.navCtrl.setRoot(MyLightPage);
+        // this.navCtrl.setRoot(MyLightPage);
+        this.navCtrl.setRoot(NewGoalPage);
       }, error => {
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({

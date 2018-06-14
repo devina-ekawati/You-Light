@@ -44,11 +44,4 @@ export class MyProfilePage {
     
   };
 
-
-
-
-
-   
-
-  
 }

@@ -10,31 +10,30 @@
 </ion-header>
 <ion-content padding id="page11">
 
-  <form [formGroup]="newGoal" (submit)="NewGoal()" novalidate>
+  <form [formGroup]="newGoalForm" (submit)="NewGoal()" novalidate>
     <ion-item >
       <ion-label>
         Goal Name
       </ion-label>
-      <ion-input formControlName="name" type="text" placeholder="Goal title" [class.invalid]="!signupForm.controls.name.valid && signupForm.controls.name.dirty"></ion-input>
+      <ion-input formControlName="name" type="text" placeholder="Goal title" [class.invalid]="!newGoalForm.controls.name.valid && newGoalForm.controls.name.dirty"></ion-input>
     </ion-item>
     <ion-item id="newGoal-input2">
       <ion-label>
         Item 1
       </ion-label>
-      <ion-input formControlName="item1" type="text" placeholder="Item title" [class.invalid]="!signupForm.controls.item1.valid && signupForm.controls.item1.dirty">
-          ></ion-input>
+      <ion-input formControlName="item1" type="text" placeholder="Item title" [class.invalid]="!newGoalForm.controls.item1.valid && newGoalForm.controls.item1.dirty"></ion-input>
     </ion-item>
     <ion-item id="newGoal-input3">
       <ion-label>
         Item 2
       </ion-label>
-      <ion-input formControlName="item2" type="text" placeholder="Item title" [class.invalid]="!signupForm.controls.item2.valid && signupForm.controls.item2.dirty"></ion-input>
+      <ion-input formControlName="item2" type="text" placeholder="Item title" [class.invalid]="!newGoalForm.controls.item2.valid && newGoalForm.controls.item2.dirty"></ion-input>
     </ion-item>
     <ion-item id="newGoal-input4">
       <ion-label>
         Item 3
       </ion-label>
-      <ion-input formControlName="item33" type="text" placeholder="Goal title" [class.invalid]="!signupForm.controls.item3.valid && signupForm.controls.item3.dirty"></ion-input>
+      <ion-input formControlName="item3" type="text" placeholder="Item title" [class.invalid]="!newGoalForm.controls.item3.valid && newGoalForm.controls.item3.dirty"></ion-input>
     </ion-item>
     <ion-item id="newGoal-input5">
       <ion-label>
@@ -48,8 +47,13 @@
       </ion-label>
       <ion-input type="text" placeholder=""></ion-input>
     </ion-item>
+
+    <button ion-button block type="submit">
+      Create an Account
+    </button>
+
   </form>
-  <button id="newGoal-button13" ion-button color="energized" block on-click="goToLightLab()">
+  <!-- <button id="newGoal-button13" ion-button color="energized" block on-click="goToLightLab()">
     Start
-  </button>
+  </button> -->
 </ion-content>

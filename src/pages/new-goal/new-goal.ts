@@ -31,37 +31,45 @@ export class NewGoalPage {
   }
 
 
-  NewBall(){
+  NewGoal(){
     if (!this.newGoalForm.valid){
       console.log(this.newGoalForm.value);
     } else {
-        this.authData.signupUser(this.newGoalForm.value.email, this.newGoalForm.value.password)
-        .then((userData) => {
-          var uid = userData.uid;
-          this.nav.setRoot(MyLightPage);
-          //Function add Goal called here 
-            this.firebaseProvider.addGoal(this.newGoalForm.value.name,this.newGoalForm.value.item1,this.newGoalForm.value.item2, this.newGoalForm.value.item3, uid);
-          //create user in database. create user from firebasedb provider with : this.newGoalForm.value.name
-        }, (error) => {
-        this.loading.dismiss().then( () => {
-          var errorMessage: string = error.message;
-            let alert = this.alertCtrl.create({
-              message: errorMessage,
-              buttons: [
-                {
-                  text: "Ok",
-                  role: 'cancel'
-                }
-              ]
-            });
-          alert.present();
-        });
-      });
+      //   this.authData.signupUser(this.newGoalForm.value.email, this.newGoalForm.value.password)
+      //   .then((userData) => {
+      //     var uid = userData.uid;
+      //     this.nav.setRoot(MyLightPage);
+      //     //Function add Goal called here 
+      //       this.firebaseProvider.addGoal(this.newGoalForm.value.name,this.newGoalForm.value.item1,this.newGoalForm.value.item2, this.newGoalForm.value.item3, uid);
+      //     //create user in database. create user from firebasedb provider with : this.newGoalForm.value.name
+      //   }, (error) => {
+      //   this.loading.dismiss().then( () => {
+      //     var errorMessage: string = error.message;
+      //       let alert = this.alertCtrl.create({
+      //         message: errorMessage,
+      //         buttons: [
+      //           {
+      //             text: "Ok",
+      //             role: 'cancel'
+      //           }
+      //         ]
+      //       });
+      //     alert.present();
+      //   });
+      // });
 
-      this.loading = this.loadingCtrl.create({
-        dismissOnPageChange: true,
+      // this.loading = this.loadingCtrl.create({
+      //   dismissOnPageChange: true,
+      // });
+      // this.loading.present();
+      
+      const authObserver = this.authData.afAuth.authState.subscribe(user => {
+        var uid = user.uid;
+        console.log(uid);
+        this.firebaseProvider.addGoal(this.newGoalForm.value.name, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3, uid);
+        this.nav.setRoot(MyLightPage);
+
       });
-      this.loading.present();
     }
   }
 
