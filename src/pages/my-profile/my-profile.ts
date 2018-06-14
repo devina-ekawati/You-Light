@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class MyProfilePage {
 
   User: Observable<any[]>;
+  Goals;
 
   Name: string;
   mail: string;
@@ -35,9 +36,17 @@ export class MyProfilePage {
     const authObserver = authPro.afAuth.authState.subscribe(user => {
       var id = user.uid;
       this.User = fbp.getUserByID(id);
+      this.Goals= fbp.getMyGoals(id);
+      console.log(this.Goals);
       }
     );
+
+    
   };
+
+
+
+
 
    
 
