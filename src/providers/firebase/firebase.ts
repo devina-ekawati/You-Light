@@ -11,18 +11,18 @@ import { Observable } from 'rxjs';
 */
 @Injectable()
 export class FirebaseProvider {
-  
+
   authPro: AuthProvider;
-  constructor(public afd: AngularFireDatabase, public authPro1 : AuthProvider) { 
+  constructor(public afd: AngularFireDatabase, public authPro1 : AuthProvider) {
 
 	this.authPro = authPro1;
 
   }
-   
+
     	getUsers() {
         	return this.afd.list('/Users');
 	}
-	
+
 	getUserByID(id) {
 		var test = this.afd.object('/Users/'+id);
 		console.log(test);
@@ -32,15 +32,15 @@ export class FirebaseProvider {
 	/* Does mot work asynchronously I should understand better Observable object to perform it
 	But no time for that
 	getMyUserInfo(){
-		
+
 		const authObserver = this.authPro.afAuth.authState.subscribe(user => {
 			var id = user.uid;
 			var User: Observable<any[]>;
 			//console.log(id);
 			User = this.getUserByID(id);
 			//console.log(this.User);
-			
-		  });	
+
+		  });
 		  return authObserver;
 	}*/
 
@@ -54,9 +54,9 @@ export class FirebaseProvider {
 		console.log(key);
 		const userList = this.afd.list('/Users');
 		userList.update(key,item);
-		
+
 	}
-	
+
 	removeUser(id) {
 		this.afd.list('/Users').remove(id);
 	}
@@ -82,25 +82,31 @@ export class FirebaseProvider {
 			})
 		});
 		return listOfGoalsKeys;
-		
+
 	}
-	
-	addGoal(Name,Item1,Item2,Item3,UserId){
+
+	addGoal(Name,Item1,Item2,Item3,Item4,Item5,UserId){
 		var item = {
-			'Name': Name,
-			'Item1': Item1,
-			'Item2': Item2,
-			'Item3': Item3,
-			'Light': 1, // Shine or not
-			'OtherAction': 0,
+			'goal': {
+        'goalName':Name,
+        'tasks':{
+          'Item1': Item1,
+    			'Item2': Item2,
+    			'Item3': Item3,
+          'Item4': Item4,
+          'Item5': Item5,
+        }
+      },
+			'goalStage':1,
+      'taskStage':1
 			};
 
 		var goal = {}
 		this.afd.object('/Goals/'+UserId).update(item);
 		//var item2 = this.afd.object('/Users/'+Owner.$key+'/Goals');
-		
+
 	}
-	
+
 	addItems(goalID,Name){
 		var item = {
 			'Name': Name,
@@ -108,5 +114,21 @@ export class FirebaseProvider {
 			};
 		this.afd.list('/Goal/'+goalID+'/Items').push(item);
 	}
+
+  getGoal(userID) {
+    console.log('test');
+    var goal;
+    // this.afd.object('/Goals/'+userID).subscribe(
+    //   items => {
+    //     items.map(
+    //       item => console.log(item)
+    //     )
+    //   }
+    // );
+    // this.afd.object('/Goals/'+userID).snapshotChanges().map(item => {
+    //   const data = item;
+    //   return data;
+    // });
+    return this.afd.object('/Goals/'+userID);
+  }
 }
-  
