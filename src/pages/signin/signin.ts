@@ -11,7 +11,6 @@ import {
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-//import { MyLightPage } from '../my-light/my-light';
 import { EmailValidator } from '../../validators/email';
 import { SignUpPage }  from '../account/signup';
 

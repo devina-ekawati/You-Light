@@ -20,6 +20,7 @@ import { SignUpPage } from '../pages/account/signup';
 import { SignInPage } from '../pages/signin/signin';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,9 +28,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
   rootPage: any;
-  isAccountMenuToggled: boolean;
+  // isAccountMenuToggled: boolean;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth, public authData: AuthProvider) {
     const authObserver = afAuth.authState.subscribe(user => {
       if (user) {
         this.rootPage = MyLightPage;
@@ -40,7 +41,7 @@ export class MyApp {
       }
     });
 
-    this.isAccountMenuToggled = false;
+    // this.isAccountMenuToggled = false;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -51,13 +52,13 @@ export class MyApp {
   }
 
 
-  toggleGroup() {
-    if (this.isAccountMenuToggled) {
-      this.isAccountMenuToggled = false;
-    } else {
-      this.isAccountMenuToggled = true;
-    }
-  }
+  // toggleGroup() {
+  //   if (this.isAccountMenuToggled) {
+  //     this.isAccountMenuToggled = false;
+  //   } else {
+  //     this.isAccountMenuToggled = true;
+  //   }
+  // }
 
   goToHome(params) {
     if (!params) params = {};
@@ -101,5 +102,10 @@ export class MyApp {
   } goToSettings(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(SettingsPage);
+  }
+
+  logout() {
+    this.navCtrl.setRoot(SignInPage);
+    this.authData.logoutUser();
   }
 }

@@ -28,17 +28,20 @@ export class MyLightPage {
     
 
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
-      this.uid = user.uid;
-      this.tasks = this.firebaseProvider.getTasks(this.uid);
-      this.goal = this.firebaseProvider.getGoal(this.uid);
+      if (user) {
+        this.uid = user.uid;
+        this.tasks = this.firebaseProvider.getTasks(this.uid);
+        this.goal = this.firebaseProvider.getGoal(this.uid);
+
+        var goal = this.goal;
+        goal.subscribe(
+          item => {
+            this.goalStage = item["goalStage"];
+            this.taskStage = item["taskStage"];
+          }
+        );
+      }
       
-      var goal = this.goal;
-      goal.subscribe(
-        item => {
-          this.goalStage = item["goalStage"];
-          this.taskStage = item["taskStage"];
-        }
-      );
     });
   }
 
