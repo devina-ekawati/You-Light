@@ -4,6 +4,9 @@ import { ManagePage } from '../manage/manage';
 import { CongratulationsPage } from '../congratulations/congratulations';
 import { NewGoalPage } from '../new-goal/new-goal';
 import { LightLabPage } from '../light-lab/light-lab';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { AuthProvider } from '../../providers/auth/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'page-my-light',
@@ -11,8 +14,15 @@ import { LightLabPage } from '../light-lab/light-lab';
 })
 export class MyLightPage {
 
-  constructor(public navCtrl: NavController) {
+  Goal;
+  constructor(public navCtrl: NavController, public fbp: FirebaseProvider, public authPro : AuthProvider) {
+    const authObserver = authPro.afAuth.authState.subscribe(user => {
+      var id = user.uid;
+      this.Goal= fbp.getGoalsbyID(id);
+      
+      } );
   }
+
   goToManage(params){
     if (!params) params = {};
     this.navCtrl.push(ManagePage);

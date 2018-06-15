@@ -85,12 +85,29 @@ export class FirebaseProvider {
 		
 	}
 	
-	addGoal(Name,Item1,Item2,Item3,UserId){
+	addGoal(Name,Item1,Item2,Item3,Item4,Item5,UserId){
 		var item = {
 			'Name': Name,
-			'Item1': Item1,
-			'Item2': Item2,
-			'Item3': Item3,
+			'Item1': {
+				"Name": Item1,
+				"status": false
+			},
+			'Item2': {
+				"Name": Item2,
+				"status": false
+			},
+			'Item3': {
+				"Name": Item3,
+				"status": false
+			},
+			'Item4': {
+				"Name": Item4,
+				"status": false
+			},
+			'Item5': {
+				"Name": Item5,
+				"status": false
+			},
 			'Light': 1, // Shine or not
 			'OtherAction': 0,
 			};

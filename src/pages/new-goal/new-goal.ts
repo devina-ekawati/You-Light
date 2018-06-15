@@ -27,6 +27,8 @@ export class NewGoalPage {
       item1: [null, [Validators.required, Validators.minLength(2)]],
       item2: [null, [Validators.required, Validators.minLength(2)]],
       item3: [null, [Validators.required, Validators.minLength(2)]],
+      item4: [null, [Validators.required, Validators.minLength(2)]],
+      item5: [null, [Validators.required, Validators.minLength(2)]],
     });
   }
 
@@ -66,7 +68,7 @@ export class NewGoalPage {
       const authObserver = this.authData.afAuth.authState.subscribe(user => {
         var uid = user.uid;
         console.log(uid);
-        this.firebaseProvider.addGoal(this.newGoalForm.value.name, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3, uid);
+        this.firebaseProvider.addGoal(this.newGoalForm.value.name, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3,this.newGoalForm.value.item4,this.newGoalForm.value.item5, uid);
         this.nav.setRoot(MyLightPage);
 
       });

@@ -12,40 +12,40 @@
   <ion-list id="myLight-list5">
     <ion-item color="none" on-click="goToManage()" id="myLight-list-item17">
       <ion-icon name="color-filter" item-left></ion-icon>
-      Current Goal
+      {{ (Goal | async)?.Name }}
     </ion-item>
   </ion-list>
   <img src="assets/img/iUyh4eh3Qvii1w5vlkZF_30443628_1765685990158563_4327308116271038464_n.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
   <form id="myLight-form1">
     <ion-item id="myLight-checkbox1">
       <ion-label>
-        Item 1
+          {{ (Goal | async)?.Item1.Name }}
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox checked = "{{ (Goal | async)?.Item1.status }}"></ion-checkbox>
     </ion-item>
     <ion-item id="myLight-checkbox7">
       <ion-label>
-        Item 2
+          {{ (Goal | async)?.Item2.Name }}
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox ></ion-checkbox>
     </ion-item>
     <ion-item id="myLight-checkbox9">
       <ion-label>
-        Item 3
+          {{ (Goal | async)?.Item3.Name }}
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item id="myLight-checkbox8">
       <ion-label>
-        Item 4
+          {{ (Goal | async)?.Item4.Name }}
       </ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item id="myLight-checkbox6">
       <ion-label>
-        Item 5
+          {{ (Goal | async)?.Item5.Name }}
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox ></ion-checkbox>
     </ion-item>
     <button id="myLight-button3" ion-button color="energized" block on-click="goToCongratulations()">
       Finish!
