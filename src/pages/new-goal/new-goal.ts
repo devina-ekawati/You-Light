@@ -3,7 +3,8 @@ import {
   NavController,
   LoadingController,
   Loading,
-  AlertController } from 'ionic-angular';
+  AlertController, 
+  NavParams} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
@@ -17,8 +18,9 @@ export class NewGoalPage {
 
   public newGoalForm: FormGroup;
   public loading: Loading;
+  isFirstGoal: boolean;
 
-  constructor(public nav: NavController, public authData: AuthProvider,
+  constructor(public nav: NavController, public navParams: NavParams, public authData: AuthProvider,
     public formBuilder: FormBuilder, public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,public firebaseProvider: FirebaseProvider) {
 
@@ -30,6 +32,8 @@ export class NewGoalPage {
       item4: [null, [Validators.required, Validators.minLength(2)]],
       item5: [null, [Validators.required, Validators.minLength(2)]],
     });
+
+    this.isFirstGoal = navParams.get('isFirstGoal');
   }
 
 
@@ -37,38 +41,12 @@ export class NewGoalPage {
     if (!this.newGoalForm.valid){
       console.log(this.newGoalForm.value);
     } else {
-      //   this.authData.signupUser(this.newGoalForm.value.email, this.newGoalForm.value.password)
-      //   .then((userData) => {
-      //     var uid = userData.uid;
-      //     this.nav.setRoot(MyLightPage);
-      //     //Function add Goal called here
-      //       this.firebaseProvider.addGoal(this.newGoalForm.value.name,this.newGoalForm.value.item1,this.newGoalForm.value.item2, this.newGoalForm.value.item3, uid);
-      //     //create user in database. create user from firebasedb provider with : this.newGoalForm.value.name
-      //   }, (error) => {
-      //   this.loading.dismiss().then( () => {
-      //     var errorMessage: string = error.message;
-      //       let alert = this.alertCtrl.create({
-      //         message: errorMessage,
-      //         buttons: [
-      //           {
-      //             text: "Ok",
-      //             role: 'cancel'
-      //           }
-      //         ]
-      //       });
-      //     alert.present();
-      //   });
-      // });
-
-      // this.loading = this.loadingCtrl.create({
-      //   dismissOnPageChange: true,
-      // });
-      // this.loading.present();
 
       const authObserver = this.authData.afAuth.authState.subscribe(user => {
         var uid = user.uid;
-        console.log(uid);
-        this.firebaseProvider.addGoal(this.newGoalForm.value.name, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3,this.newGoalForm.value.item4,this.newGoalForm.value.item5, uid);
+        this.firebaseProvider.addGoal(uid, this.newGoalForm.value.name, this.isFirstGoal);
+        this.firebaseProvider.addTasks(uid, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3, this.newGoalForm.value.item4, this.newGoalForm.value.item5);
+        
         this.nav.setRoot(MyLightPage);
 
       });

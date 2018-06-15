@@ -13,7 +13,9 @@ export class CongratulationsPage {
   }
   goToNewGoal(params){
     if (!params) params = {};
-    this.navCtrl.push(NewGoalPage);
+    this.navCtrl.push(NewGoalPage, {
+      isFirstGoal: false
+    });
   }goToLightLab(params){
     if (!params) params = {};
     this.navCtrl.push(LightLabPage);

@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Observable } from 'rxjs';
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -19,8 +17,8 @@ export class FirebaseProvider {
 
   }
 
-    	getUsers() {
-        	return this.afd.list('/Users');
+    getUsers() {
+        return this.afd.list('/Users');
 	}
 
 	getUserByID(id) {
@@ -28,21 +26,6 @@ export class FirebaseProvider {
 		console.log(test);
 		return test;
 	}
-
-	/* Does mot work asynchronously I should understand better Observable object to perform it
-	But no time for that
-	getMyUserInfo(){
-
-		const authObserver = this.authPro.afAuth.authState.subscribe(user => {
-			var id = user.uid;
-			var User: Observable<any[]>;
-			//console.log(id);
-			User = this.getUserByID(id);
-			//console.log(this.User);
-
-		  });
-		  return authObserver;
-	}*/
 
 	addUser(name,mail,password,key) {
 		var item = {
@@ -62,75 +45,74 @@ export class FirebaseProvider {
 	}
 
 	getGoals(){
-		 return this.afd.list('/Goals');
+		return this.afd.list('/Goals');
 	}
 
-	getGoalsbyID(key){
-		return this.afd.object('/Goals/'+key);
-	}
-
-	//NOT TESTED YET
-	getMyGoals(userID){
-		var listOfGoalsKeys =[];
-		var test = [1,2];
-		var Goals; //:FireListObservable<any[]]>;
-		var listKey = this.afd.list('/Users/'+userID+'/Goals/');
-		listKey.forEach(element => {
-			element.forEach(element1 => {
-				listOfGoalsKeys.push(element1.$value);
-				Goals.push(this.afd.object('/Goals/'+element1.$value));
-			})
-		});
-		return listOfGoalsKeys;
-
-	}
-
-	addGoal(Name,Item1,Item2,Item3,Item4,Item5,UserId){
-		var item = {
-			'goal': {
-        'goalName':Name,
-        'tasks':{
-          'Item1': Item1,
-    			'Item2': Item2,
-    			'Item3': Item3,
-          'Item4': Item4,
-          'Item5': Item5,
-        }
-      },
-			'goalStage':1,
-      'taskStage':1
-			};
-
+	addGoal(userID, name, isFirstGoal: boolean=true){
 		var goal = {}
-		this.afd.object('/Goals/'+UserId).update(item);
-		//var item2 = this.afd.object('/Users/'+Owner.$key+'/Goals');
-
-	}
-
-	addItems(goalID,Name){
-		var item = {
-			'Name': Name,
-			'status': 0,
-			};
-		this.afd.list('/Goal/'+goalID+'/Items').push(item);
-	}
-
-
-  getGoal(userID) {
-    // this.afd.object('/Goals/'+userID).subscribe(
-    //   items => {
-    //     items.map(
-    //       item => console.log(item)
-    //     )
-    //   }
-    // );
-    // this.afd.object('/Goals/'+userID).snapshotChanges().map(item => {
-    //   const data = item;
-    //   return data;
-		// });
+		if (isFirstGoal) {
+			goal = {
+				"goalName": name,
+				"goalStage": 0,
+				"taskStage": 0
+			}
+		} else {
+			goal = {
+				"goalName": name,
+				"taskStage": 0
+			}
+		}
 		
-    return this.afd.object('/Goals/'+userID);
-  }
+		this.afd.object('/Goals/' + userID).update(goal);
+	}
+
+	getGoal(userID) {
+		return this.afd.object('/Goals/' + userID);
+	}
+
+	finishGoal(userID, goalStage) {
+		this.afd.object('/userFeatures/' + userID).update({ 'finishedState': 1 });
+		this.afd.object('/Goals/' + userID).update({ 'goalStage': goalStage, 'taskStage': 0 });
+	}
+
+	addTasks(userID, item1, item2, item3, item4, item5) {
+		var tasks = {
+			"item1": {
+				"name": item1,
+				"isFinised": false
+			},
+			"item2": {
+				"name": item2,
+				"isFinised": false
+			},
+			"item3": {
+				"name": item3,
+				"isFinised": false
+			},
+			"item4": {
+				"name": item4,
+				"isFinised": false
+			},
+			"item5": {
+				"name": item5,
+				"isFinised": false
+			}
+		}
+
+		this.afd.object('/Tasks/'+userID).update(tasks);
+	} 
+
+	updateTaskStage(userID, taskStage) {
+		this.afd.object('/Goals/' + userID).update({ 'taskStage': taskStage });
+	}
+
+	finishTask(userID, taskID) {
+		this.afd.object('/Tasks/'+ userID + "/" + taskID).update({'isFinished': true});
+	}
+	
+	getTasks(userID) {
+		return this.afd.list('/Tasks/'+userID);
+	}
 
 	initiateUserFeatures(userID){
 		var userFeatures = {
@@ -141,10 +123,6 @@ export class FirebaseProvider {
 		}
 
 		this.afd.object('/userFeatures/'+userID).update(userFeatures);
-
-		this.afd.object('/userFeatures/'+userID).subscribe(
-			userFeatures => console.log(userFeatures)
-		);
 	}
 
 	blinkMyLight(userID) {
@@ -155,9 +133,6 @@ export class FirebaseProvider {
 		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 
-  finishlight(userID, goalStage) {
-		this.afd.object('/userFeatures/'+userID).update({'finishedState': 1});
-		this.afd.object('/Goals/'+ userID).update({'goalStage': goalStage, 'taskStage': 0});
-	}
+  	
 
 }

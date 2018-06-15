@@ -12,14 +12,19 @@
   <ion-list id="myLight-list5">
     <ion-item color="none" on-click="goToManage()" id="myLight-list-item17">
       <ion-icon name="color-filter" item-left></ion-icon>
-      currentGoal
+       {{ (goal | async)?.goalName }}
     </ion-item>
   </ion-list>
   <img src="assets/img/iUyh4eh3Qvii1w5vlkZF_30443628_1765685990158563_4327308116271038464_n.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
   <form id="myLight-form1">
-    <ion-item *ngFor="let name of items">
+    <!-- <ion-item *ngFor="let name of items">
       <ion-label>{{name.name}}</ion-label>
       <ion-checkbox [(ngModel)]="name.value" [ngModelOptions]="{standalone: true}" (click)="CheckboxClicked(name, $event)"></ion-checkbox>
+    </ion-item> -->
+    <ion-item *ngFor="let task of (tasks | async); let i = index;">
+      <ion-label>{{task?.name }}</ion-label>
+      <ion-checkbox *ngIf="task.isFinished" disabled [(ngModel)]="task.isFinished" [ngModelOptions]="{standalone: true}" (click)="CheckboxClicked(i, task, $event); $event.stopPropagation();"></ion-checkbox>
+      <ion-checkbox *ngIf="!task.isFinished" [(ngModel)]="task.isFinished" [ngModelOptions]="{standalone: true}" (click)="CheckboxClicked(i, task, $event); $event.stopPropagation();"></ion-checkbox>
     </ion-item>
     <button id="myLight-button3" (click)="finishlight()" ion-button color="energized" block on-click="goToCongratulations()">
       Finish!

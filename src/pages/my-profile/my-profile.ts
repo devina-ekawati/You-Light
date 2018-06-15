@@ -36,8 +36,6 @@ export class MyProfilePage {
     const authObserver = authPro.afAuth.authState.subscribe(user => {
       var id = user.uid;
       this.User = fbp.getUserByID(id);
-      this.Goals= fbp.getMyGoals(id);
-      console.log(this.Goals);
       }
     );
 
