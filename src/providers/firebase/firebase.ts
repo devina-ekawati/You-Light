@@ -127,7 +127,8 @@ export class FirebaseProvider {
     // this.afd.object('/Goals/'+userID).snapshotChanges().map(item => {
     //   const data = item;
     //   return data;
-    // });
+		// });
+		
     return this.afd.object('/Goals/'+userID);
   }
 
@@ -154,9 +155,9 @@ export class FirebaseProvider {
 		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 
-  finishlight(userID) {
+  finishlight(userID, goalStage) {
 		this.afd.object('/userFeatures/'+userID).update({'finishedState': 1});
-		this.afd.object('/Goals/'+ userID).update({'goalStage': 1, 'taskStage': 0});
+		this.afd.object('/Goals/'+ userID).update({'goalStage': goalStage, 'taskStage': 0});
 	}
 
 }

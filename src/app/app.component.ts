@@ -31,8 +31,6 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
     const authObserver = afAuth.authState.subscribe(user => {
-      console.log("test");
-      console.log(user);
       if (user) {
         this.rootPage = MyLightPage;
         authObserver.unsubscribe();

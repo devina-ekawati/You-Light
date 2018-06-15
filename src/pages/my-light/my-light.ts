@@ -18,22 +18,23 @@ export class MyLightPage {
   items: any[];
   uid: string;
   taskStage: number;
+  goalStage: number;
   goals: Observable<any>;
   goalName: string;
 
   constructor(public navCtrl: NavController,public authData: AuthProvider, public firebaseProvider: FirebaseProvider, public afd: AngularFireDatabase) {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
       this.uid = user.uid;
-      // this.firebaseProvider.getGoal(this.uid).subscribe(
-      //   item => {
-      //     this.goals = item;
-      //   }
-      // );
+      this.firebaseProvider.getGoal(this.uid).subscribe(
+        item => {
+          this.goals = item;
+          this.goalStage = item["goalStage"];
+          this.taskStage = item["taskStage"];
+        }
+      );
     });
 
     // console.log(this.goals);
-
-    this.taskStage = -1;
 
     this.items = [
       {
@@ -61,7 +62,7 @@ export class MyLightPage {
   finishlight() {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
       var uid = user.uid;
-      this.firebaseProvider.finishlight(uid);
+      this.firebaseProvider.finishlight(uid, this.goalStage + 1);
     });
   }
 
@@ -80,9 +81,15 @@ export class MyLightPage {
   }
 
   CheckboxClicked(item: any, $event) {
-    console.log('CheckboxClicked for ' + item.name + ' with value ' + item.value);
-    this.taskStage += 1;
-    console.log(this.taskStage);
-    this.afd.object('/Goals/' + this.uid).update({ 'taskStage': this.taskStage });
+    // console.log('CheckboxClicked for ' + item.name + ' with value ' + item.value);
+    console.log("Goal stage: " + this.goalStage);
+    if (item.value == true) {
+      if (this.taskStage < 4) {
+        this.taskStage += 1;
+        this.afd.object('/Goals/' + this.uid).update({ 'taskStage': this.taskStage });
+      }
+    }
+    
+    console.log("Task stage: " + this.taskStage);
   }
 }
