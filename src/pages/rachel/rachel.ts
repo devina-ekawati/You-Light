@@ -14,8 +14,10 @@ export class RachelPage {
   
   follow() {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
-      var uid = user.uid;
-      this.firebaseProvider.follow(uid);
+      if (user) {
+        var uid = user.uid;
+        this.firebaseProvider.follow(uid);
+      }
     });
   }
 }

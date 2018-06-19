@@ -34,10 +34,11 @@ export class MyProfilePage {
       //Here should begetMyUserInfo from firebase.ts but does not work asynchronously
 
     const authObserver = authPro.afAuth.authState.subscribe(user => {
-      var id = user.uid;
-      this.User = fbp.getUserByID(id);
+      if (user) {
+        var id = user.uid;
+        this.User = fbp.getUserByID(id);
       }
-    );
+    });
 
     
   };

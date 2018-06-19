@@ -43,11 +43,13 @@ export class NewGoalPage {
     } else {
 
       const authObserver = this.authData.afAuth.authState.subscribe(user => {
-        var uid = user.uid;
-        this.firebaseProvider.addGoal(uid, this.newGoalForm.value.name, this.isFirstGoal);
-        this.firebaseProvider.addTasks(uid, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3, this.newGoalForm.value.item4, this.newGoalForm.value.item5);
-        
-        this.nav.setRoot(MyLightPage);
+        if (user){
+          var uid = user.uid;
+          this.firebaseProvider.addGoal(uid, this.newGoalForm.value.name, this.isFirstGoal);
+          this.firebaseProvider.addTasks(uid, this.newGoalForm.value.item1, this.newGoalForm.value.item2, this.newGoalForm.value.item3, this.newGoalForm.value.item4, this.newGoalForm.value.item5);
+          
+          this.nav.setRoot(MyLightPage);
+        }
 
       });
     }

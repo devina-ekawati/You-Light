@@ -68,10 +68,8 @@ export class MyLightPage {
 
   CheckboxClicked(i, task: any, $event) {
     if (task.isFinished == true) {
-      if (this.taskStage < 4) {
-        this.taskStage += 1;
-        this.firebaseProvider.updateTaskStage(this.uid, this.taskStage);
-      }
+      this.taskStage += 1;
+      this.firebaseProvider.updateTaskStage(this.uid, this.taskStage);
 
       this.firebaseProvider.finishTask(this.uid, "item"+(i+1));
     }

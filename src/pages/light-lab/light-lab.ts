@@ -14,8 +14,10 @@ export class LightLabPage {
 
   blinkMyLight() {
     const authObserver = this.authData.afAuth.authState.subscribe(user => {
-      var uid = user.uid;
-      this.firebaseProvider.blinkMyLight(uid);
+      if (user) {
+        var uid = user.uid;
+        this.firebaseProvider.blinkMyLight(uid);
+      }
     });
   }
   

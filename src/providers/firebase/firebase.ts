@@ -23,7 +23,6 @@ export class FirebaseProvider {
 
 	getUserByID(id) {
 		var test = this.afd.object('/Users/'+id);
-		console.log(test);
 		return test;
 	}
 
@@ -34,7 +33,6 @@ export class FirebaseProvider {
 			'Password' : password,
 			'UID' : key,
 		};
-		console.log(key);
 		const userList = this.afd.list('/Users');
 		userList.update(key,item);
 
@@ -79,23 +77,23 @@ export class FirebaseProvider {
 		var tasks = {
 			"item1": {
 				"name": item1,
-				"isFinised": false
+				"isFinished": false
 			},
 			"item2": {
 				"name": item2,
-				"isFinised": false
+				"isFinished": false
 			},
 			"item3": {
 				"name": item3,
-				"isFinised": false
+				"isFinished": false
 			},
 			"item4": {
 				"name": item4,
-				"isFinised": false
+				"isFinished": false
 			},
 			"item5": {
 				"name": item5,
-				"isFinised": false
+				"isFinished": false
 			}
 		}
 
@@ -119,7 +117,8 @@ export class FirebaseProvider {
 			'blinkState': 0,
 			'breathState': 1,
 			'finishedState': 0,
-			'followState': 0
+			'followState': 0,
+			'likeState': 0
 		}
 
 		this.afd.object('/userFeatures/'+userID).update(userFeatures);
@@ -133,6 +132,8 @@ export class FirebaseProvider {
 		this.afd.object('/userFeatures/' + userID).update({'followState': 1});
 	}
 
-  	
+	like(userID) {
+		this.afd.object('/userFeatures/' + userID).update({ 'likeState': 1 });
+	}
 
 }
